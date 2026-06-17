@@ -1,0 +1,38 @@
+window {
+    background-color: transparent;
+    border-radius: 0px;
+}
+
+.osd-container-lang {
+    background-color: #0078D7;
+    border-radius: 0px;
+    min-width: 250px;
+}
+
+.osd-lang {
+    color: #CCCCCC;
+    margin: 0;
+    font-size: 18px;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+    padding: 10px 32px;
+    border: none;
+    border-radius: 0px;
+    background-color: transparent;
+    transition: none; 
+    min-height: 25px;
+}
+
+.osd-lang-active {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 18px;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: 400;
+    padding: 10px 32px;
+    border: none;
+    border-radius: 0px;
+    background-color: #004781;
+    transition: none;
+    min-height: 25px;
+}

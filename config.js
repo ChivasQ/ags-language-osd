@@ -4,7 +4,7 @@ import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk?version=3.0';
 import Gdk from 'gi://Gdk?version=3.0';
-
+import GLib from 'gi://GLib';
 // Translation dictionary for readable layout names, I don't know a way to do it better...
 const layoutNames = {
     "US": "English",
@@ -141,7 +141,7 @@ const OsdWindow = () => Widget.Window({
             const monitor = display.get_primary_monitor() || display.get_monitor(0);
             const workarea = monitor.get_workarea(); 
 
-            const marginSide = 50; 
+            const marginSide = 32; 
             const y = Math.floor(workarea.y + (workarea.height - allocation.height) / 2);
             const x = Math.floor(workarea.x + workarea.width - allocation.width - marginSide);
 
@@ -204,7 +204,9 @@ const osd = OsdWindow();
 // osd.show_all();
 // Utils.timeout(500, () => osd.visible = false);
 
+const activeStyle = GLib.getenv("OSD_THEME_PATH") || './style.css';
+
 App.config({
-    style: './style.css',
+    style: activeStyle,
     windows: [ osd ],
 });
