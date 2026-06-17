@@ -18,12 +18,31 @@ if [ ! -f "/usr/local/bin/ags-core" ]; then
     fi
 fi
 
-# Install the patched wrapper
-echo -e "${GREEN}[*] Installing GJS system wrapper...${NC}"
-sudo cp ./system-patch/ags-wrapper /usr/local/bin/ags
+# Dynamic generation of the GJS wrapper
+echo -e "${GREEN}[*] Locating GObject Introspection typelibs...${NC}"
+TYPELIB_FILE=$(find /usr -name "GUtils*.typelib" 2>/dev/null | head -n 1)
+
+if [ -n "$TYPELIB_FILE" ]; then
+    TYPELIB_DIR=$(dirname "$TYPELIB_FILE")
+    echo -e "${GREEN}[*] Found typelib dynamically at: $TYPELIB_DIR${NC}"
+else
+    echo -e "${RED}[!] GUtils typelib not found via search. Using safe fallbacks.${NC}"
+    TYPELIB_DIR="/usr/local/lib:/usr/local/lib/girepository-1.0"
+fi
+
+echo -e "${GREEN}[*] Generating system-aware GJS wrapper...${NC}"
+
+cat <<EOF | sudo tee /usr/local/bin/ags > /dev/null
+#!/bin/bash
+export GDK_BACKEND=x11
+export GI_TYPELIB_PATH="${TYPELIB_DIR}:\${GI_TYPELIB_PATH:+:\$GI_TYPELIB_PATH}"
+export LD_LIBRARY_PATH="/usr/local/lib\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}"
+exec /usr/local/bin/ags-core "\$@"
+EOF
+
 sudo chmod +x /usr/local/bin/ags
 
-# Create symlinks (if the repository is cloned to a different directory)
+# Path resolution & Symlinks
 CONFIG_DIR="$HOME/.config/ags"
 CURRENT_DIR="$(pwd)"
 
@@ -36,6 +55,7 @@ fi
 # Permissions for startup script
 echo -e "${GREEN}[*] Securing execution permissions...${NC}"
 chmod +x "$CONFIG_DIR/startup.sh"
+
 # Dynamic generation of XDG Autostart
 echo -e "${GREEN}[*] Generating absolute path XDG autostart...${NC}"
 mkdir -p "$HOME/.config/autostart"
@@ -56,9 +76,8 @@ EOF
 
 chmod +x "$HOME/.config/autostart/ags-osd.desktop"
 
-Session cleanup
+# Session cleanup
 echo -e "${GREEN}[*] Terminating stale background processes...${NC}"
 pkill ags || true
 
-echo -e "${GREEN}[+] Deployment complete. The OSD will start automatically on next login.${NC}"
-echo -e "${GREEN}[+] To start immediately without reboot, run: /bin/bash $CONFIG_DIR/startup.sh &${NC}"
+echo -e "${GREEN}[+] Deployment complete. The OS-agnostic architecture is applied.${NC}"
