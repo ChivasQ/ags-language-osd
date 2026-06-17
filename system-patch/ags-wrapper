@@ -1,4 +1,5 @@
 #!/bin/bash
-export GI_TYPELIB_PATH=/usr/local/lib/girepository-1.0:/usr/local/lib:$GI_TYPELIB_PATH
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export GDK_BACKEND=x11
+export GI_TYPELIB_PATH="/usr/local/lib/girepository-1.0${GI_TYPELIB_PATH:+:$GI_TYPELIB_PATH}"
+export LD_LIBRARY_PATH="/usr/local/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 exec /usr/local/bin/ags-core "$@"

@@ -116,7 +116,6 @@ const OsdWindow = () => Widget.Window({
     visible: false, 
     
     setup: (self) => {
-        // Enable Alpha channel for true compositor transparency support
         self.set_app_paintable(true);
         const screen = self.get_screen();
         const visual = screen.get_rgba_visual();
@@ -201,9 +200,11 @@ const OsdWindow = () => Widget.Window({
     })
 });
 
+const osd = OsdWindow();
+// osd.show_all();
+// Utils.timeout(500, () => osd.visible = false);
+
 App.config({
     style: './style.css',
-    windows: [
-        OsdWindow(),
-    ],
+    windows: [ osd ],
 });

@@ -38,15 +38,6 @@ Once installed, start the daemon manually to verify functionality:
 ags -c ~/.config/ags/config.js
 ```
 
-## Autostart (XFCE)
-To ensure the OSD runs automatically in the background on system boot:
-1. Open **Session and Startup** (`xfce4-session-settings`).
-2. Go to the **Application Autostart** tab.
-3. Click **Add** and use the following parameters:
-    * **Name:** AGS Language OSD
-    * **Command:** `ags -c /home/<YOUR_USERNAME>/.config/ags/config.js`
-    * **Trigger:** on login
-
 ## Configuration
 
 To modify the displayed language names (e.g., translating "US" to "English"), edit the `layoutNames` dictionary inside `config.js`.
