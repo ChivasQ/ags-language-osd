@@ -5,7 +5,7 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo -e "${GREEN}[*] Starting AGS OSD deployment...${NC}"
+echo -e "${GREEN}[*] Starting AGS OSD installation...${NC}"
 
 #  Check for the original binary
 if [ ! -f "/usr/local/bin/ags-core" ]; then
@@ -33,4 +33,4 @@ if [ "$CURRENT_DIR" != "$CONFIG_DIR" ]; then
     ln -sfn "$CURRENT_DIR" "$CONFIG_DIR"
 fi
 
-echo -e "${GREEN}[+] Installation complete. Run: ags -c ~/.config/ags/config.js${NC}"
+echo -e "${GREEN}[+] Installation complete. Add command to startup: ags -c ~/.config/ags/config.js${NC}"

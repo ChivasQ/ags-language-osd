@@ -5,11 +5,85 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Gtk from 'gi://Gtk?version=3.0';
 import Gdk from 'gi://Gdk?version=3.0';
 
-// Translation dictionary for readable layout names, I dont know a way to do it better...
+// Translation dictionary for readable layout names, I don't know a way to do it better...
 const layoutNames = {
     "US": "English",
     "RU": "Russian",
-    "UA": "Ukrainian"
+    "UA": "Ukrainian",
+    "GB": "English",
+    "DE": "German",
+    "FR": "French",
+    "ES": "Spanish",
+    "IT": "Italian",
+    "PL": "Polish",
+    "PT": "Portuguese",
+    "BR": "Portuguese",
+    "TR": "Turkish",
+    "BY": "Belarusian",
+    "KZ": "Kazakh",
+    "CN": "Chinese",
+    "JP": "Japanese",
+    "KR": "Korean",
+    "SE": "Swedish",
+    "FI": "Finnish",
+    "NO": "Norwegian",
+    "DK": "Danish",
+    "NL": "Dutch",
+    "CZ": "Czech",
+    "SK": "Slovak",
+    "HU": "Hungarian",
+    "RO": "Romanian",
+    "BG": "Bulgarian",
+    "GR": "Greek",
+    "IL": "Hebrew",
+    "AR": "Arabic",
+    "IN": "Hindi",
+    "TH": "Thai",
+    "VN": "Vietnamese",
+    "CH": "Swiss",
+    "CA": "English",
+    "EE": "Estonian",
+    "LV": "Latvian",
+    "LT": "Lithuanian",
+    "GE": "Georgian",
+    "AM": "Armenian",
+    "RS": "Serbian",
+    "HR": "Croatian",
+    "SI": "Slovenian",
+    "BA": "Bosnian",
+    "ME": "Montenegrin",
+    "MK": "Macedonian",
+    "AL": "Albanian",
+    "IR": "Persian",
+    "AF": "Afghan",
+    "PK": "Urdu",
+    "BD": "Bengali",
+    "LK": "Sinhala",
+    "MM": "Burmese",
+    "KH": "Khmer",
+    "LA": "Lao",
+    "ID": "Indonesian",
+    "MY": "Malay",
+    "PH": "Filipino",
+    "MN": "Mongolian",
+    "TJ": "Tajik",
+    "UZ": "Uzbek",
+    "TM": "Turkmen",
+    "KG": "Kyrgyz",
+    "AZ": "Azerbaijani",
+    "SY": "Syriac",
+    "IQ": "Kurdish",
+    "ZA": "Afrikaans",
+    "ET": "Amharic",
+    "KE": "Swahili",
+    "IS": "Icelandic",
+    "FO": "Faroese",
+    "IE": "Irish",
+    "MT": "Maltese",
+    "BE": "Belgian",
+    "AT": "German",
+    "AU": "English",
+    "NZ": "English"
 };
 
 // One-time synchronous execution to fetch available system layouts
@@ -42,7 +116,7 @@ const OsdWindow = () => Widget.Window({
     visible: false, 
     
     setup: (self) => {
-        // Enable RGBA visual channel for true compositor transparency support
+        // Enable Alpha channel for true compositor transparency support
         self.set_app_paintable(true);
         const screen = self.get_screen();
         const visual = screen.get_rgba_visual();
@@ -50,7 +124,7 @@ const OsdWindow = () => Widget.Window({
             self.set_visual(visual);
         }
 
-        // Low-level X11 Window Manager bypass (Override Redirect)
+        // Low-level X11 Window Manager bypass
         self.set_decorated(false);
         self.set_accept_focus(false);
         self.set_keep_above(true);
